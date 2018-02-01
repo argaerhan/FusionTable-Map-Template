@@ -162,8 +162,13 @@
         self.searchRadius = $("#search_radius").val();
         self.whereClause = self.locationColumn + " not equal to ''";
         
-        //-----custom filters-----
-        //-----end of custom filters-----
+        var type_column = "'type'";
+var tempWhereClause = [];
+if ( $("#cbType1").is(':checked')) tempWhereClause.push("Healthcare");
+if ( $("#cbType2").is(':checked')) tempWhereClause.push("Property");
+if ( $("#cbType3").is(':checked')) tempWhereClause.push("Public");
+if ( $("#cbType4").is(':checked')) tempWhereClause.push("Other");
+self.whereClause += " AND " + type_column + " IN ('" + tempWhereClause.join("','") + "')";
 
         self.getgeoCondition(address, function (geoCondition) {
             self.whereClause += geoCondition;
